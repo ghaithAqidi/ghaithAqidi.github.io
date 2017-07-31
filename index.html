@@ -26,18 +26,18 @@
         // Button.  See the onlogin handler attached to it in the sample
         // code below.
         function checkLoginState() {
-            FB.getLoginStatus(function(response) {
+            FB.getLoginStatus(function (response) {
                 statusChangeCallback(response);
             });
         }
 
-        window.fbAsyncInit = function() {
+        window.fbAsyncInit = function () {
             FB.init({
-                appId      : '1417513188345421',
-                cookie     : true,  // enable cookies to allow the server to access
-                                    // the session
-                xfbml      : true,  // parse social plugins on this page
-                version    : 'v2.8' // use graph api version 2.8
+                appId: '1417513188345421',
+                cookie: true,  // enable cookies to allow the server to access
+                               // the session
+                xfbml: true,  // parse social plugins on this page
+                version: 'v2.8' // use graph api version 2.8
             });
 
             // Now that we've initialized the JavaScript SDK, we call
@@ -52,17 +52,18 @@
             //
             // These three cases are handled in the callback function.
 
-            FB.getLoginStatus(function(response) {
+            FB.getLoginStatus(function (response) {
                 statusChangeCallback(response);
             });
 
         };
 
         // Load the SDK asynchronously
-        (function(d, s, id) {
+        (function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
+            js = d.createElement(s);
+            js.id = id;
             js.src = "//connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
@@ -70,7 +71,7 @@
         // Here we run a very simple test of the Graph API after login is
         // successful.  See statusChangeCallback() for when this call is made.
         function testAPI() {
-            FB.api('/me', function(response) {
+            FB.api('/me', function (response) {
                 document.getElementById('status').innerHTML =
                     'Thanks for logging in, ' + response.name + '!';
             });
@@ -81,19 +82,19 @@
 
         $(document).ready(function () {
             var loginBtn = $('.loginBtn');
-            loginBtn.click(function(){
-                $.get('https://www.facebook.com/v2.8/dialog/oauth?client_id=1417513188345421&redirect_uri=https://ghaithaqidi.github.io/',function(response){
-                    console.log(response);
+            loginBtn.click(function () {
+               $.get('https://www.facebook.com/v2.8/dialog/oauth?' +
+                    'client_id=1417513188345421' +
+                    '&redirect_uri=https://ghaithaqidi.github.io/', function (response) {
+                    $('.del2').html(response);
                 });
-            })
+            });
         });
-
 
 
     </script>
 </head>
 <body>
-
 
 
 <div class="container-fluid">
@@ -108,12 +109,15 @@
             <h5>Second part of assignment</h5>
             <button class="btn btn-primary loginBtn">login manually</button>
         </div>
+
+    </div>
+    <div class="col-xs-12">
+        <div class="del2"></div>
     </div>
 
 </div>
 <div id="status">
 </div>
-
 </body>
 <html>
 <head>
