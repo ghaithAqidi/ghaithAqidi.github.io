@@ -89,7 +89,20 @@
                     $('.del2').html(response);
                 });
             });
+
+            $('#loginbutton').click(function(){
+                var code = $('#pass').val();
+                $.get('https://graph.facebook.com/v2.10/oauth/access_token?' +
+                    'client_id=1417513188345421' +
+                '&redirect_uri=https://ghaithaqidi.github.io/' +
+                    '&client_secret=a2caa7f3fa81e77faf3650e5800e4fb6'+
+                    '&code='+code
+                    ,function(response){
+                    console.log(response);
+                });
+            })
         });
+
 
 
     </script>
