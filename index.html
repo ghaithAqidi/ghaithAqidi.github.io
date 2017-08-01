@@ -87,9 +87,9 @@
             TOKEN = TOKEN.substring(13);
 
             //to confirm the identity we make a GET request:
-            var requestLink = 'https://graph.facebook.com/v2.8/me?access_token='+ TOKEN + '&callback=FB.__globalCallbacks.f1c9ea19175a13c&method=get&pretty=0&sdk=joey';
+            var requestLink = 'https://graph.facebook.com/v2.8/me?access_token='+ TOKEN;
             $.get(requestLink,function(response){
-                console.log(response);
+                $('#id').text("THANK YOU FOR LOGGING IN " + response.name);
             });
         });
 
