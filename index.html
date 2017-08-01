@@ -79,14 +79,18 @@
                         console.log(response);
                     });
             });
+
+            // algorithm to get the token.
             var currentURL = window.location.href;
-            var url = new URL(currentURL);
-            var c = url.searchParams.get("#access_token");
-            console.log(c);
+            var urlArray = currentURL.split('?#');
+            var TOKEN = urlArray[1].substr(0, urlArray[1].indexOf('&'));
+            TOKEN = TOKEN.substring(13);
+            console.log(TOKEN);
+            //var c = url.searchParams.get("#access_token");
 
             //var accessToken = getUrlParameter('access_token');
             //$('.id').text(accessToken);
-
+            //https://ghaithaqidi.github.io/?#access_token=EAAUJOIIORk0BAPbfpYblp1xv4ZCEiOkYWJtZAOkkvKqh2cbgSRwteYSZBxZBKSTPQENSrxValiO50ZAXehIjPhxooCZCV1ZAiD9ZBoXOCUrkcIhKyDKuzJkWLwwiZB7rNBoMJYv083RXZCGHPQAj6mVzOSI1bMGKwZCJOicZAmTMSIxUuUtPuAbBjIiE7oXCQEWhYiFQPa8HtOnb5YzVZCN4rBZCzZA&expires_in=5545
             //helper function to get parameters from URL,
             //example: var tech = getUrlParameter('technology');
             //https://stackoverflow.com/questions/19491336/get-url-parameter-jquery-or-how-to-get-query-string-values-in-js
