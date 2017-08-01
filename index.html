@@ -68,26 +68,21 @@
                     '&redirect_uri=https://ghaithaqidi.github.io&display=popup&response_type=token');
             });
 
-            $('#loginbutton').click(function () {
-                var code = $('#pass').val();
-                $.get('https://graph.facebook.com/v2.10/oauth/access_token?' +
-                    'client_id=1417513188345421' +
-                    '&redirect_uri=https://ghaithaqidi.github.io/' +
-                    '&client_secret=a2caa7f3fa81e77faf3650e5800e4fb6' +
-                    '&code=' + code
-                    , function (response) {
-                        console.log(response);
-                    });
-            });
+            //are we already logged in?
+            if (sessionStorage.TOKEN){
+                var TOKEN = sessionStorage.TOKEN;
+            } else {
+                var TOKEN = null;
+            }
 
             // algorithm to get the token.
-            var TOKEN = null;
             var currentURL = window.location.href;
             var urlArray = currentURL.split('?#');
             if (urlArray.length>1){
                 var TOKEN = urlArray[1].substr(0, urlArray[1].indexOf('&'));
             }
             if (TOKEN != null){
+                sessionStorage.TOKEN = TOKEN;
                 TOKEN = TOKEN.substring(13);
                 //to confirm the identity we make a GET request:
                 var requestLink = 'https://graph.facebook.com/v2.8/me?access_token='+ TOKEN;
@@ -95,6 +90,8 @@
                     $('.id').text("THANK YOU FOR LOGGING IN " + response.name);
                     $('.id').addClass('alert-success');
                 });
+            } else {
+                $('.id').text("You are not logged in");
             }
 
 
@@ -117,6 +114,11 @@
                 $('.id').append($('<p>').text("Error Description: "+errorDescription));
             }
 
+            //logout
+            $('.logoutBtn').click(function () {
+                sessionStorage.removeItem('TOKEN');
+                $('.id').text("You are logged out!");
+            });
         });
 
 
@@ -140,9 +142,10 @@
                 </div>
             </div>
             <div class="col-xs-6">
-                <div>
+                <button>
                     <h5>Second part of assignment</h5>
                     <button class="btn btn-primary loginBtn">login manually</button>
+                    <button class="btn btn-danger logoutBtn"> Log out </button>
                     <div class="del2">
                         <p class="id">
 
