@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
-    <!-- jquery BBQ for parsing data -->
-    <script type="text/javascript" src="https://raw.githubusercontent.com/cowboy/jquery-bbq/master/jquery.ba-bbq.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css"/>
     <title>Privacy And Identity Assignment 1</title>
@@ -67,23 +65,44 @@
 
                 window.open('https://www.facebook.com/v2.8/dialog/oauth?' +
                     'client_id=1417513188345421' +
-                    '&redirect_uri=https://www.facebook.com/connect/login_success.html','_blank');
-
+                    '&redirect_uri=https://ghaithaqidi.github.io&display=popup&response_type=token', '_blank');
             });
 
-            $('#loginbutton').click(function(){
+            $('#loginbutton').click(function () {
                 var code = $('#pass').val();
-                /*$.get('https://graph.facebook.com/v2.10/oauth/access_token?' +
+                $.get('https://graph.facebook.com/v2.10/oauth/access_token?' +
                     'client_id=1417513188345421' +
-                '&redirect_uri=https://ghaithaqidi.github.io/' +
-                    '&client_secret=a2caa7f3fa81e77faf3650e5800e4fb6'+
-                    '&code='+code
-                    ,function(response){
-                    console.log(response);
-                });*/
-            })
-        });
+                    '&redirect_uri=https://ghaithaqidi.github.io/' +
+                    '&client_secret=a2caa7f3fa81e77faf3650e5800e4fb6' +
+                    '&code=' + code
+                    , function (response) {
+                        console.log(response);
+                    });
+            });
 
+            var accessToken = getUrlParameter('access_token');
+            $('.id').text(accessToken);
+
+            //helper function to get parameters from URL,
+            //example: var tech = getUrlParameter('technology');
+            //https://stackoverflow.com/questions/19491336/get-url-parameter-jquery-or-how-to-get-query-string-values-in-js
+
+            var getUrlParameter = function getUrlParameter(sParam) {
+                var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                    sURLVariables = sPageURL.split('&'),
+                    sParameterName,
+                    i;
+
+                for (i = 0; i < sURLVariables.length; i++) {
+                    sParameterName = sURLVariables[i].split('=');
+
+                    if (sParameterName[0] === sParam) {
+                        return sParameterName[1] === undefined ? true : sParameterName[1];
+                    }
+                }
+            };
+
+        });
 
 
     </script>
@@ -92,7 +111,7 @@
 
 
 <div class="container-fluid">
-    <div class="col-xs-8 col-xs-offset-2" >
+    <div class="col-xs-8 col-xs-offset-2">
         <div class="row">
             <div class="col-xs-12 col-md-6">
                 <h5>First part of assignment</h5>
@@ -108,17 +127,16 @@
                 <div>
                     <h5>Second part of assignment</h5>
                     <button class="btn btn-primary loginBtn">login manually</button>
+                    <div class="del2">
+                        <p class="id">
+                            Not logged in
+                        </p>
+                    </div>
                 </div>
 
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="del2"></div>
-            </div>
-        </div>
     </div>
-
 
 
 </div>
