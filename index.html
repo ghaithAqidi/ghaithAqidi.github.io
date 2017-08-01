@@ -62,15 +62,18 @@
         $(document).ready(function () {
             var loginBtn = $('.loginBtn');
             loginBtn.click(function () {
-
-                window.open('https://www.facebook.com/v2.8/dialog/oauth?' +
-                    'client_id=1417513188345421' +
-                    '&redirect_uri=https://ghaithaqidi.github.io&display=popup&response_type=token');
+                if (localStorage.TOKEN != null){
+                    $('.id').text("You are logged in already!" );
+                } else {
+                    window.open('https://www.facebook.com/v2.8/dialog/oauth?' +
+                        'client_id=1417513188345421' +
+                        '&redirect_uri=https://ghaithaqidi.github.io&display=popup&response_type=token');
+                }
             });
 
             //are we already logged in?
-            if (sessionStorage.TOKEN){
-                var TOKEN = sessionStorage.TOKEN;
+            if (localStorage.TOKEN){
+                var TOKEN = localStorage.TOKEN;
             } else {
                 var TOKEN = null;
             }
@@ -82,7 +85,7 @@
                 var TOKEN = urlArray[1].substr(0, urlArray[1].indexOf('&'));
             }
             if (TOKEN != null){
-                sessionStorage.TOKEN = TOKEN;
+                localStorage.TOKEN = TOKEN;
                 TOKEN = TOKEN.substring(13);
                 //to confirm the identity we make a GET request:
                 var requestLink = 'https://graph.facebook.com/v2.8/me?access_token='+ TOKEN;
@@ -116,7 +119,7 @@
 
             //logout
             $('.logoutBtn').click(function () {
-                sessionStorage.removeItem('TOKEN');
+                localStorage.removeItem('TOKEN');
                 $('.id').text("You are logged out!");
             });
         });
