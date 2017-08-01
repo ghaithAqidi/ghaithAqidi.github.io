@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+    <!-- jquery BBQ for parsing data -->
+    <script type="text/javascript" src="https://raw.githubusercontent.com/cowboy/jquery-bbq/master/jquery.ba-bbq.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css"/>
     <title>Privacy And Identity Assignment 1</title>
@@ -62,23 +64,23 @@
         $(document).ready(function () {
             var loginBtn = $('.loginBtn');
             loginBtn.click(function () {
-               $.get('https://www.facebook.com/v2.8/dialog/oauth?' +
+
+                window.open('https://www.facebook.com/v2.8/dialog/oauth?' +
                     'client_id=1417513188345421' +
-                    '&redirect_uri=https://ghaithaqidi.github.io/', function (response) {
-                    $('.del2').html(response);
-                });
+                    '&redirect_uri=https://www.facebook.com/connect/login_success.html','_blank');
+
             });
 
             $('#loginbutton').click(function(){
                 var code = $('#pass').val();
-                $.get('https://graph.facebook.com/v2.10/oauth/access_token?' +
+                /*$.get('https://graph.facebook.com/v2.10/oauth/access_token?' +
                     'client_id=1417513188345421' +
                 '&redirect_uri=https://ghaithaqidi.github.io/' +
                     '&client_secret=a2caa7f3fa81e77faf3650e5800e4fb6'+
                     '&code='+code
                     ,function(response){
                     console.log(response);
-                });
+                });*/
             })
         });
 
