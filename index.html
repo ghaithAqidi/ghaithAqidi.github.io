@@ -65,7 +65,7 @@
 
                 window.open('https://www.facebook.com/v2.8/dialog/oauth?' +
                     'client_id=1417513188345421' +
-                    '&redirect_uri=https://ghaithaqidi.github.io&display=popup&response_type=token', '_blank');
+                    '&redirect_uri=https://ghaithaqidi.github.io&display=popup&response_type=token');
             });
 
             $('#loginbutton').click(function () {
@@ -81,17 +81,42 @@
             });
 
             // algorithm to get the token.
+            var TOKEN = null;
             var currentURL = window.location.href;
             var urlArray = currentURL.split('?#');
-            var TOKEN = urlArray[1].substr(0, urlArray[1].indexOf('&'));
-            TOKEN = TOKEN.substring(13);
+            if (urlArray.length>1){
+                var TOKEN = urlArray[1].substr(0, urlArray[1].indexOf('&'));
+            }
+            if (TOKEN != null){
+                TOKEN = TOKEN.substring(13);
+                //to confirm the identity we make a GET request:
+                var requestLink = 'https://graph.facebook.com/v2.8/me?access_token='+ TOKEN;
+                $.get(requestLink,function(response){
+                    $('.id').text("THANK YOU FOR LOGGING IN " + response.name);
+                    $('.id').addClass('alert-success');
+                });
+            }
 
-            //to confirm the identity we make a GET request:
-            var requestLink = 'https://graph.facebook.com/v2.8/me?access_token='+ TOKEN;
-            $.get(requestLink,function(response){
-                $('.id').text("THANK YOU FOR LOGGING IN " + response.name);
-                $('.id').addClass('alert-success');
-            });
+
+
+            //https://ghaithaqidi.github.io/?error=access_denied&error_code=200&error_description=Permissions%20error&error_reason=user_denied#_=_
+            var url_string = window.location.href;
+            var url = new URL(url_string);
+            var error = url.searchParams.get("error");
+            var errorCode = url.searchParams.get('error_code');
+            var errorDescription = url.searchParams.get("error_description");
+
+            if (error){
+                $('.id').addClass('alert-warning');
+                $('.id').append($('<p>').text("Error: "+error));
+            }
+            if (errorCode){
+                $('.id').append($('<p>').text("Error Code: "+errorCode));
+            }
+            if (errorDescription){
+                $('.id').append($('<p>').text("Error Description: "+errorDescription));
+            }
+
         });
 
 
@@ -120,7 +145,7 @@
                     <button class="btn btn-primary loginBtn">login manually</button>
                     <div class="del2">
                         <p class="id">
-                            Not logged in
+
                         </p>
                     </div>
                 </div>
