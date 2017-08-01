@@ -89,7 +89,8 @@
             //to confirm the identity we make a GET request:
             var requestLink = 'https://graph.facebook.com/v2.8/me?access_token='+ TOKEN;
             $.get(requestLink,function(response){
-                $('#id').text("THANK YOU FOR LOGGING IN " + response.name);
+                $('.id').text("THANK YOU FOR LOGGING IN " + response.name);
+                $('.id').addClass('alert-success');
             });
         });
 
