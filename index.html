@@ -79,9 +79,13 @@
                         console.log(response);
                     });
             });
+            var currentURL = window.location.href;
+            var url = new URL(currentURL);
+            var c = url.searchParams.get("access_token");
+            console.log(c);
 
-            var accessToken = getUrlParameter('access_token');
-            $('.id').text(accessToken);
+            //var accessToken = getUrlParameter('access_token');
+            //$('.id').text(accessToken);
 
             //helper function to get parameters from URL,
             //example: var tech = getUrlParameter('technology');
