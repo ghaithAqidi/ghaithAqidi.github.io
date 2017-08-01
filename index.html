@@ -85,31 +85,15 @@
             var urlArray = currentURL.split('?#');
             var TOKEN = urlArray[1].substr(0, urlArray[1].indexOf('&'));
             TOKEN = TOKEN.substring(13);
-            console.log(TOKEN);
-            //var c = url.searchParams.get("#access_token");
 
-            //var accessToken = getUrlParameter('access_token');
-            //$('.id').text(accessToken);
-            //https://ghaithaqidi.github.io/?#access_token=EAAUJOIIORk0BAPbfpYblp1xv4ZCEiOkYWJtZAOkkvKqh2cbgSRwteYSZBxZBKSTPQENSrxValiO50ZAXehIjPhxooCZCV1ZAiD9ZBoXOCUrkcIhKyDKuzJkWLwwiZB7rNBoMJYv083RXZCGHPQAj6mVzOSI1bMGKwZCJOicZAmTMSIxUuUtPuAbBjIiE7oXCQEWhYiFQPa8HtOnb5YzVZCN4rBZCzZA&expires_in=5545
-            //helper function to get parameters from URL,
-            //example: var tech = getUrlParameter('technology');
-            //https://stackoverflow.com/questions/19491336/get-url-parameter-jquery-or-how-to-get-query-string-values-in-js
+            //to confirm the identity we make a GET request:
+            var requestLink = 'https://graph.facebook.com/v2.8/me?access_token='+ TOKEN + '&callback=FB.__globalCallbacks.f1c9ea19175a13c&method=get&pretty=0&sdk=joey';
+            $.get(requestLink,function(response){
+                console.log(response);
+            });
         });
 
-        function getUrlParameter(sParam) {
-            var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-                sURLVariables = sPageURL.split('&'),
-                sParameterName,
-                i;
 
-            for (i = 0; i < sURLVariables.length; i++) {
-                sParameterName = sURLVariables[i].split('=');
-
-                if (sParameterName[0] === sParam) {
-                    return sParameterName[1] === undefined ? true : sParameterName[1];
-                }
-            }
-        };
 
     </script>
 </head>
